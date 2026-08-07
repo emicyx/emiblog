@@ -1,0 +1,126 @@
+/* ============================================================
+   pet-widget.css ? ??A ?????Fuwari / Astro ???????
+   ?????? <body> ?? <div id="pet-widget"></div> ??????
+   ============================================================ */
+
+.pet-widget {
+  position: fixed;
+  width: var(--pet-size, 220px);
+  height: var(--pet-size, 220px);
+  pointer-events: none;          /* ???????? */
+  user-select: none;
+  z-index: 9999;
+}
+
+/* ???? */
+.pet-widget.dock-bottom-right { right: var(--pet-offset-x, 18px); bottom: var(--pet-offset-y, 18px); }
+.pet-widget.dock-bottom-left  { left:  var(--pet-offset-x, 18px); bottom: var(--pet-offset-y, 18px); }
+.pet-widget.dock-top-right    { right: var(--pet-offset-x, 18px); top:    var(--pet-offset-y, 18px); }
+.pet-widget.dock-top-left     { left:  var(--pet-offset-x, 18px); top:    var(--pet-offset-y, 18px); }
+
+/* returnToDock:true ?????????? */
+.pet-widget.returning {
+  transition: left .55s cubic-bezier(.22,.61,.36,1),
+              top  .55s cubic-bezier(.22,.61,.36,1);
+}
+
+.pet-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;         /* ????????? */
+  cursor: grab;
+  touch-action: none;           /* ?????? */
+}
+.pet-widget.dragging .pet-stage { cursor: grabbing; }
+
+/* ???????? / ???? / ?? / ????????? */
+.pet-body {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 8%;     /* ???????/????????? */
+  animation: petFloat 3.2s ease-in-out infinite;
+}
+.pet-body.sitting  { animation: petShake 3.2s ease-in-out infinite; }
+.pet-body.lifted   { animation: none; }
+.pet-body.drop     { animation: petDrop .5s cubic-bezier(.36,.07,.19,.97); }
+.pet-body.squash   { animation: petSquash .16s ease; }
+
+.pet-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.28));
+  transition: opacity .18s ease;
+}
+
+/* ???????????????JS ?????????????? */
+.pet-body.lifted .pet-img {
+  animation: petDangle 1.6s ease-in-out infinite;
+  transform-origin: 50% 6%;
+}
+
+/* ?????? */
+.pet-notes {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+.pet-notes.on { opacity: 1; }
+.pet-notes span {
+  position: absolute;
+  font-size: 18px;
+  color: #8ecae6;
+  text-shadow: 0 1px 2px rgba(0,0,0,.2);
+  animation: petNote 2.6s ease-out infinite;
+}
+.pet-notes span:nth-child(2) { animation-delay: 1.3s; }
+
+/* ??????????????? respectReducedMotion:false ??? */
+.pet-widget.reduced-motion .pet-body { animation: none !important; }
+.pet-widget.reduced-motion .pet-body.lifted .pet-img { animation: none !important; }
+.pet-widget.reduced-motion .pet-notes span { animation: none !important; opacity: 0; }
+
+/* ????? + ???? + ?????????? */
+@keyframes petFloat {
+  0%, 100% { transform: translateY(0)     rotate(0deg)  scale(1); }
+  30%      { transform: translateY(-8px)  rotate(-2deg) scale(1.02, .98); }
+  50%      { transform: translateY(-12px) rotate(0deg)  scale(1); }
+  70%      { transform: translateY(-8px)  rotate(2deg)  scale(1.02, .98); }
+}
+/* ???????? */
+@keyframes petShake {
+  0%, 100% { transform: rotate(0deg); }
+  20%      { transform: rotate(-3deg); }
+  45%      { transform: rotate(2.2deg); }
+  70%      { transform: rotate(-1.6deg); }
+}
+/* ?????? */
+@keyframes petDrop {
+  0%   { transform: translateY(0) scale(1); }
+  35%  { transform: translateY(30px) scale(.97,.9); }
+  70%  { transform: translateY(-6px) scale(1.02,1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+/* ????????????????? */
+@keyframes petSquash {
+  0%, 100% { transform: scale(1, 1); }
+  50%      { transform: scale(1.02, .93); }
+}
+/* ?????? */
+@keyframes petNote {
+  0%   { transform: translate(-4px, 0) rotate(-12deg) scale(.6); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translate(14px, -64px) rotate(14deg) scale(1.1); opacity: 0; }
+}
+/* ????????? */
+@keyframes petDangle {
+  0%, 100% { transform: rotate(-3.5deg) translateY(3px); }
+  50%      { transform: rotate(3.5deg) translateY(-2px); }
+}
