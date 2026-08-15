@@ -310,17 +310,25 @@
 
     var names = ['standing', 'blink', 'sitting', 'sittingClosed', 'lifted'];
     var toLoad = names.filter(function (n) { return !!cfg.assets[n]; });
-    Promise.all(toLoad.map(function (n) {
-      return preload(cfg.assets[n]).then(function (res) {
-        assets[n] = res;
-        if (!res.ok) log('asset load failed:', n, cfg.assets[n]);
-      });
-    })).then(function () {
+
+    function activate() {
+      if (instance.ready) return;
       var first = (assets.standing && assets.standing.ok) ? cfg.assets.standing : cfg.assets.sitting;
       img.setAttribute('src', first);
       instance.ready = true;
       resetIdle();
       scheduleBlink();
+    }
+
+    // 主图（standing）一就绪就立刻显示宠物，其余资源继续后台预加载
+    // 避免弱网环境下 Promise.all 等待全部资源导致宠物长时间不出现
+    var primary = toLoad.indexOf('standing') >= 0 ? 'standing' : toLoad[0];
+    toLoad.forEach(function (n) {
+      preload(cfg.assets[n]).then(function (res) {
+        assets[n] = res;
+        if (!res.ok) log('asset load failed:', n, cfg.assets[n]);
+        if (n === primary) activate();
+      });
     });
 
     stage.addEventListener('pointerenter', function () {
