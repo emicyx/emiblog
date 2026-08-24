@@ -15,6 +15,7 @@
 
 # 曾做过什么
 > - [私人 AI Agent 助手Nexus](https://github.com/emicyx/Nexus-agent)
+> - [bongocat-mcp：让桌上的猫替你盯 AI 干活](https://github.com/emicyx/bongocat-mcp)
 > - [满穗太刀语音包mod](https://www.bilibili.com/video/BV1Mw4m1C7sR/?spm_id_from=333.1387.upload.video_card.click)
 
 > ### 本网站使用到的图片来源
