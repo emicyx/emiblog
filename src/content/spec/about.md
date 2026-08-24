@@ -17,12 +17,6 @@
 > - [私人 AI Agent 助手Nexus](https://github.com/emicyx/Nexus-agent)
 > - [满穗太刀语音包mod](https://www.bilibili.com/video/BV1Mw4m1C7sR/?spm_id_from=333.1387.upload.video_card.click)
 
-
-::github{repo="saicaca/fuwari"}
-
 > ### 本网站使用到的图片来源
-> - [Unsplash](https://unsplash.com/)
-> - [星と少女](https://www.pixiv.net/artworks/108916539) by [Stella](https://www.pixiv.net/users/93273965)
-> - [Rabbit - v1.4 Showcase](https://civitai.com/posts/586908) by [Rabbit_YourMajesty](https://civitai.com/user/Rabbit_YourMajesty)
 > - [礼服樱羽艾玛](https://www.bilibili.com/video/BV17nwNzwEY5/?spm_id_from=333.1387.list.card_archive.click) by [令时焥夏KiriAINa](https://space.bilibili.com/8157271)
 > 
